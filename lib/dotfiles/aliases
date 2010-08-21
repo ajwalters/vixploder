@@ -36,9 +36,6 @@ alias rg='rails generate'
 alias rdb='rake db:migrate'
 alias ld='tail -f log/development.log'
 alias lt='tail -f log/test.log'
-alias pt='rake parallel:test'
-alias pf='rake parallel:features'
-alias pp='rake parallel:prepare'
 
 # Autotest
 alias autos='AUTOFEATURE=true autospec'

@@ -64,8 +64,6 @@ if has("autocmd")
   autocmd! BufWritePost .vimrc source %
 
   "------- Rails autocmds
-  ": Rfactory
-  autocmd User Rails Rnavcommand factory test/factories -suffix=_factory.rb
   autocmd User Rails Rnavcommand feature features -suffix=.feature
   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb
 
@@ -123,9 +121,6 @@ map <Leader>vv :RVview
 map <Leader>vu :RVunittest 
 map <Leader>vf :RVfeature 
 map <Leader>qq :sp ~/.vimrc<CR><C-W>_ 
-
-"Set up TextMate-like cmd-T file searching using <leader>-t ('comma'-t)
-noremap <leader>t :FuzzyFinderTextMate<CR>
 
 " Hide search highlighting
 map <Leader>h :set invhls <CR>
@@ -209,19 +204,6 @@ noremap <C-s> :NERDTreeToggle<CR>
 "Ignore files
 let NERDTreeIgnore=['\.beam$']
 
-
-"-------- FuzzyFinderTextmate plugin settings
-"Limit the number of matches returned to 50 in FuzzyFinder searches
-let g:fuzzy_matching_limit='50'
-
-"Ignore the following glob file patters in FuzzyFinder searches
-let g:fuzzy_ignore='*.log'
-
-" If we are in a Rails app, just search across the app, lib, config, spec, and test
-" directories
-if filereadable(expand('./vendor'))
-  let g:fuzzy_roots=['app', 'lib', 'config', 'spec', 'test']
-endif
 
 "-------- Most Recently Used File (MRU) plugin mapping & config
 "Open Most Recently Used window with Ctl+o

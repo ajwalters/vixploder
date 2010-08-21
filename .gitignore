@@ -3,3 +3,5 @@ doc/*
 .DS_Store
 pkg/*
 *.netrwhist
+lib/dotfiles/vim/ruby/command-t/*
+!lib/dotfiles/vim/ruby/command-t/*.rb

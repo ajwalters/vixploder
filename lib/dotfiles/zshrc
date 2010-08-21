@@ -3,7 +3,7 @@ export PATH="/usr/local/bin:$PATH"
 export SVN_EDITOR="mvim"
 export ERL_LIBS=/opt/erlang-libs
 export RDOCOPT="-S -f html -T hanna"
-
+export CLASSPATH="$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.1.0/clojure-contrib.jar"
 # completion
 autoload -U compinit
 compinit
