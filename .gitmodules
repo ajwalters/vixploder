@@ -37,3 +37,6 @@
 [submodule "lib/dotfiles/vim/bundle/vim-slurper"]
 	path = lib/dotfiles/vim/bundle/vim-slurper
 	url = git://github.com/alowe/vim-slurper.git
+[submodule "lib/dotfiles/vim/bundle/textile.vim"]
+	path = lib/dotfiles/vim/bundle/textile.vim
+	url = http://github.com/timcharper/textile.vim.git
