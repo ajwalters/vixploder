@@ -12,14 +12,12 @@ compinit
 setopt auto_cd
 
 export EDITOR='mvim'
+export JAVA_HOME='/System/Library/Frameworks/JavaVM.framework/Versions/1.6/Home'
 
 # aliases
 if [ -e "$HOME/.aliases" ]; then
   source "$HOME/.aliases"
 fi
-
-# use vi
-#bindkey -v
 
 # use incremental search
 bindkey ^R history-incremental-search-backward
