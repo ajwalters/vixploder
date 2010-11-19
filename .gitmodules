@@ -40,3 +40,6 @@
 [submodule "lib/dotfiles/vim/bundle/textile.vim"]
 	path = lib/dotfiles/vim/bundle/textile.vim
 	url = http://github.com/timcharper/textile.vim.git
+[submodule "lib/dotfiles/vim/bundle/markdown"]
+	path = lib/dotfiles/vim/bundle/markdown
+	url = https://github.com/janne/markdown.vim.git
