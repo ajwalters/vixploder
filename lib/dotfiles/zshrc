@@ -5,9 +5,6 @@ export ERL_LIBS=/opt/erlang-libs
 export RDOCOPT="-S -f html -T hanna"
 export CLASSPATH="$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.1.0/clojure-contrib.jar"
 # completion
-autoload -U compinit
-compinit
-
 # automatically enter directories without cd
 setopt auto_cd
 
@@ -37,3 +34,16 @@ export HISTSIZE=200
 # rvm-install added line:
 if [[ -s ~/.rvm/scripts/rvm ]] ; then source ~/.rvm/scripts/rvm ; fi
 
+
+## Completions
+autoload -U compinit
+compinit -C
+## completions ####
+autoload -U zstyle+
+## General completion technique
+## complete as much u can ..
+#zstyle ':completion:*' completer _complete _list _oldlist _expand _ignored _match _correct _approximate _prefix
+## complete less
+zstyle ':completion:*' completer _expand _complete _list _ignored _approximate
+## complete minimal
+#zstyle ':completion:*' completer _complete _ignored
