@@ -1,29 +1,40 @@
 require 'rubygems'
-require 'pp'
-
+begin
+  require 'pp'
+rescue LoadError
+end
 
 begin
   require 'wirble'
   Wirble.init
   Wirble.colorize
-rescue
+rescue LoadError
 end
 
 begin
   require 'boson'
   Boson.start
-rescue
+rescue LoadError
 end
 
 begin
   require 'ap'
-rescue
+rescue LoadError
 end
 
 # print SQL to STDOUT
-if ENV.include?('RAILS_ENV') && !Object.const_defined?('RAILS_DEFAULT_LOGGER')
-  require 'logger'
-  RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+if ENV.include?('RAILS_ENV') 
+  if !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+    require 'logger'
+    RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+  end
+elsif defined?(Rails) && !Rails.env.nil?
+  if Rails.logger
+    Rails.logger =Logger.new(STDOUT)
+    ActiveRecord::Base.logger = Rails.logger
+  end
+else
+  # nothing to do
 end
 
 # Autocomplete
