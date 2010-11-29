@@ -1,19 +1,5 @@
 # Subversion
 alias up='svn up --ignore-externals'
-
-# Git
-#alias gd='git diff | opendiff'
-alias gst='git status'
-alias gl='git pull'
-alias gp='git push'
-alias gc='git commit'
-alias gca='git commit -a'
-alias gco='git checkout'
-alias gb='git branch'
-alias gba='git branch -a'
-alias ga='git add'
-alias g='git'
-
 # Common command aliases
 alias vil='vi $_'
 alias ls='ls -F'
