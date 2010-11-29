@@ -21,5 +21,8 @@
   plre = pull --rebase
   st = status
   out = log origin..HEAD
+  b = branch
+  st = status
+  co = checkout
 [branch]
 	autosetupmerge = true
