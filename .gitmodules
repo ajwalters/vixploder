@@ -31,9 +31,6 @@
 [submodule "lib/dotfiles/vim/bundle/vim-surround"]
 	path = lib/dotfiles/vim/bundle/vim-surround
 	url = git://github.com/tpope/vim-surround.git
-[submodule "lib/dotfiles/vim/bundle/vim-vividchalk"]
-	path = lib/dotfiles/vim/bundle/vim-vividchalk
-	url = git://github.com/tpope/vim-vividchalk.git
 [submodule "lib/dotfiles/vim/bundle/vim-slurper"]
 	path = lib/dotfiles/vim/bundle/vim-slurper
 	url = git://github.com/alowe/vim-slurper.git
