@@ -19,6 +19,8 @@ fi
 # use incremental search
 bindkey ^R history-incremental-search-backward
 
+bindkey -e
+
 # expand functions in the prompt
 setopt prompt_subst
 
