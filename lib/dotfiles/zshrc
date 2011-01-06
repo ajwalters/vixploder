@@ -17,7 +17,7 @@ if [ -e "$HOME/.aliases" ]; then
 fi
 
 # use incremental search
-bindkey ^R history-incremental-search-backward
+#bindkey ^R history-incremental-search-backward
 
 # use emacs binding
 bindkey -e 
@@ -26,10 +26,12 @@ bindkey -e
 setopt prompt_subst
 
 # prompt
-export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[green]%}%2c%{$reset_color%}] '
+export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg[green]%}%n@%m:"}%{$fg[green]%}%2c%{$reset_color%}] '
 
 # ignore duplicate history entries
 setopt histignoredups
+# expand functions in the prompt
+setopt prompt_subst
 
 # keep more history
 export HISTSIZE=200
@@ -50,3 +52,18 @@ autoload -U zstyle+
 zstyle ':completion:*' completer _expand _complete _list _ignored _approximate
 ## complete minimal
 #zstyle ':completion:*' completer _complete _ignored
+
+# enable colored output from ls, etc
+export CLICOLOR=1
+# LS Color configuration
+export LSCOLORS=gxfxcxdxbxegedabagacad
+
+
+
+git_prompt_info() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null)
+  if [[ -n $ref ]]; then
+    echo "[%{$fg[green]%}${ref#refs/heads/}%{$reset_color%}]"
+  fi
+}
+

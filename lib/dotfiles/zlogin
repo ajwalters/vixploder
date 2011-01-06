@@ -1,22 +1,22 @@
-git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null)
-  if [[ -n $ref ]]; then
-    echo "[%{$fg_bold[green]%}${ref#refs/heads/}%{$reset_color%}]"
-  fi
-}
+#cdp() {
+  #if [[ -n ${1} && -e /Volumes/${1} ]] ; then
+    #cd /Volumes/${1}
+  #elif [[ -e ~/Projects/${1}.sparsebundle ]]; then
+    #open -W ~/Projects/${1}.sparsebundle
+    #cd /Volumes/${1}
+  #elif [[ -e ~/Projects/${1}.dmg ]]; then
+    #open -W ~/Projects/${1}.dmg
+    #cd /Volumes/${1}
+  #elif [[ ${1} ]]; then
+    #cd ~/Projects/${1}
+  #else
+    #cd ~/Projects
+  #fi
+#}
 
 # makes color constants available
 autoload -U colors
 colors
-
-# enable colored output from ls, etc
-export CLICOLOR=1
-
-# LS Color configuration
-export LSCOLORS=gxfxcxdxbxegedabagacad
-
-# expand functions in the prompt
-setopt prompt_subst
 
 # prompt -- Removed...set both in zlogin and zshrc...not sure why
 # export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg_bold[green]%}%n@%m:"}%{$fg_bold[white]%}%~%{$reset_color%}] '
