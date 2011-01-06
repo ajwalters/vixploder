@@ -113,6 +113,18 @@ map <Leader>ee :e <C-R>=expand("%:p:h") . "/" <CR>
 " Normal mode: <Leader>t
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
+" Close tabs with tc
+map <Leader>tc :tabclose<CR>
+
+" Create new tab with Ctl+t
+map <Leader>tt :tabnew<CR>
+
+" Open NERDTree
+map <Leader>s :NERDTreeToggle<CR>
+
+" Open MRU (Most Recently Used plugin)
+map <Leader>m :MRU 
+
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
@@ -177,17 +189,8 @@ noremap <C-J> <C-W>j<C-W>_
 noremap <C-K> <C-W>k<C-W>_
 
 "-------- NERDTree settings
-"Toggle NERDTree window using F3 key
-"noremap <F3> :NERDTreeToggle<CR>
-noremap <C-s> :NERDTreeToggle<CR>
-
 "Ignore files
 let NERDTreeIgnore=['\.beam$']
-
-
-"-------- Most Recently Used File (MRU) plugin mapping & config
-"Open Most Recently Used window with Ctl+o
-"noremap <C-o> :MRU<CR>
 
 "Set max entries in MRU option window
 let MRU_Max_Entries = 30
@@ -207,13 +210,6 @@ let MRU_Max_Entries = 30
 "endif
 
 let g:gist_clip_command = 'pbcopy'
-
-"-------- Tab mappings
-"Close tabs with tc
-noremap tc :tabclose<CR>
-
-"Create new tab with Ctl+t
-noremap tt :tabnew<CR>
 
 "-------- Abbreviations
 "Some lorem ispum text
