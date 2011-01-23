@@ -10,7 +10,6 @@ alias la='ls -lah'
 alias sgi='sudo gem install --no-ri'
 alias restart='touch tmp/restart.txt'
 alias kill_ruby='killall -9 ruby'
-alias mvim='mvim 2>/dev/null'
 # Rails
 alias r='rails'
 alias ss='./script/server --debugger'
