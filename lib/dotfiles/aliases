@@ -22,6 +22,12 @@ alias rdb='rake db:migrate'
 alias ld='tail -f log/development.log'
 alias lt='tail -f log/test.log'
 
+# MacVim terminal
+alias vim='mvim -v'
+alias view='mview -v'
+alias vimdiff='mvimdiff -v'
+alias vimex='mvimex -v'
+
 # Autotest
 alias autos='AUTOFEATURE=true autospec'
 
