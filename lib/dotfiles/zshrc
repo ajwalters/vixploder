@@ -58,6 +58,11 @@ export CLICOLOR=1
 # LS Color configuration
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
+# ** TMUX ATULOGIN **
+TMUX_SESSION=$USER
+
+# Check for existing session and attach if present
+
 
 
 git_prompt_info() {

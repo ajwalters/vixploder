@@ -46,3 +46,6 @@
 [submodule "lib/dotfiles/vim/bundle/vim-erlang-skeletons"]
 	path = lib/dotfiles/vim/bundle/vim-erlang-skeletons
 	url = https://github.com/aerosol/vim-erlang-skeletons
+[submodule "lib/dotfiles/vim/bundle/vim-unimpaired"]
+	path = lib/dotfiles/vim/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
