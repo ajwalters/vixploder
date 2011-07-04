@@ -57,12 +57,23 @@ export CLICOLOR=1
 # LS Color configuration
 export LSCOLORS=gxfxcxdxbxegedabagacad
 
-# ** TMUX ATULOGIN **
-TMUX_SESSION=$USER
 
-# Check for existing session and attach if present
+# TMUX
+if [[ -z $TMUX ]]; then
+  # ** TMUX ATULOGIN **
+  # Check for existing session and attach if present
+  TMUX_SESSION=$USER
+  tmux has-session -t $TMUX_SESSION &>/dev/null
+  if [[ $? -ne 0 ]]; then
+    tmux new-session -d -s $TMUX_SESSION
+  fi
+  tmux attach-session -t $TMUX_SESSION &>/dev/null
+fi
 
-
+# Autoload .rvmrc when new window created
+if [[ -e ./.rvmrc ]]; then
+  source ./.rvmrc
+fi
 
 git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
