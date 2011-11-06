@@ -1,3 +1,5 @@
+" *** COMMENTING OUT TO REDO VIM CONFIG ***
+"
 "set guioptions-=T     "Hide the toolbar
 
 " set window size
@@ -5,26 +7,26 @@
 "set columns=150
 
 " Window size
-set winwidth=60
-let g:halfsize = 90
-let g:fullsize = 180
-set lines=50
-let &columns = g:halfsize
+" set winwidth=60
+" let g:halfsize = 90
+" let g:fullsize = 180
+" set lines=50
+" let &columns = g:halfsize
 
-" Font
-set guifont=Monaco:h15.00
+" " Font
+" set guifont=Monaco:h15.00
 
-" No audible bell
-set vb
+" " No audible bell
+" set vb
 
-" No toolbar
-set guioptions-=T
+" " No toolbar
+" set guioptions-=T
 
 
-if has("gui_macvim")
-  macmenu &File.New\ Tab key=<nop>
-  map <D-t> :CommandT<CR>
-endif
+" if has("gui_macvim")
+"   macmenu &File.New\ Tab key=<nop>
+"   map <D-t> :CommandT<CR>
+" endif
 
 "-------- Local Overrides
 "If you have options you'd like to override locally for
