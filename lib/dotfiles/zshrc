@@ -1,8 +1,11 @@
 # ENV VARIABLES
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH"
 export SVN_EDITOR="vim"
 export ERL_LIBS=/opt/erlang-libs
 export CLASSPATH="$CLASSPATH:/usr/local/Cellar/clojure-contrib/1.1.0/clojure-contrib.jar"
+
+# export BUNDLE_GEMFILE=Gemfile.local
+
 # completion
 # automatically enter directories without cd
 setopt auto_cd
@@ -63,12 +66,16 @@ if [[ -z $TMUX ]]; then
   # ** TMUX ATULOGIN **
   # Check for existing session and attach if present
   TMUX_SESSION=$USER
-  tmux has-session -t $TMUX_SESSION &>/dev/null
+  TMUX_SOCKET="/var/tmp/tmux"
+  tmux -S $TMUX_SOCKET has-session -t $TMUX_SESSION &>/dev/null
   if [[ $? -ne 0 ]]; then
-    tmux new-session -d -s $TMUX_SESSION
+    tmux -S $TMUX_SOCKET new-session -d -s $TMUX_SESSION
   fi
-  tmux attach-session -t $TMUX_SESSION &>/dev/null
+  tmux -S $TMUX_SOCKET attach-session -t $TMUX_SESSION &>/dev/null
 fi
+
+# TMUXINATOR
+if [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]]; then source $HOME/.tmuxinator/scripts/tmuxinator; fi
 
 # Autoload .rvmrc when new window created
 if [[ -e ./.rvmrc ]]; then

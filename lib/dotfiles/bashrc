@@ -1,0 +1,111 @@
+# Frankenstein dotfiles
+# sources: Matt Polito, Ryan Tomayko
+
+# LS Coloring
+export EDITOR="vim"
+export HISTCONTROL=erasedups
+export HISTSIZE=10000
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad
+export BUNDLE_GEMFILE=Gemfile.local
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/Users/awalters/Projects/groupon-git-utils/bin
+# some shit from polito
+#export MYVIMRC=~/.vimrc
+#export MYGVIMRC=~/.gvimrc
+#export BUNDLER_EDITOR="mvim -f"
+#export CUCUMBER_FORMAT=pretty
+#echo "FOOOOOOOO"
+
+# Some ruby optimizations
+export RUBY_HEAP_MIN_SLOTS=500000
+export RUBY_HEAP_SLOTS_INCREMENT=250000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=50000000
+
+# Shell Opts
+shopt -s cdspell >/dev/null 2>&1
+shopt -s extglob >/dev/null 2>&1
+shopt -s histappend >/dev/null 2>&1
+shopt -s hostcomplete >/dev/null 2>&1
+shopt -s interactive_comments >/dev/null 2>&1
+shopt -u mailwarn >/dev/null 2>&1
+shopt -s no_empty_cmd_completion >/dev/null 2>&1
+
+# Aliases
+if [ -e "$HOME/.aliases" ]; then
+  source "$HOME/.aliases"
+fi
+
+# Completion
+# ----------------------------------------------------------------------
+# BASH COMPLETION
+# ----------------------------------------------------------------------
+
+# [[ -d /usr/local/etc/bash_completion.d ]] && . /usr/local/etc/bash_completion.d/*
+if [ -f `brew --prefix`/etc/bash_completion ]; then
+  . `brew --prefix`/etc/bash_completion
+fi
+
+#test -z "$BASH_COMPLETION" && {
+    #bash=${BASH_VERSION%.*}; bmajor=${bash%.*}; bminor=${bash#*.}
+    #test -n "$PS1" && test $bmajor -gt 1 && {
+        ## search for a bash_completion file to source
+        #for f in /usr/local/etc/bash_completion.d \
+                 #/usr/pkg/etc/bash_completion \
+                 #/opt/local/etc/bash_completion \
+                 #/etc/bash_completion
+        #do
+            #test -f $f && {
+                #. $f
+                #break
+            #}
+        #done
+    #}
+    #unset bash bmajor bminor
+#}
+
+# GIT
+function parse_git_dirty {
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+function parse_git_branch {
+  local ref=$(git symbolic-ref HEAD 2> /dev/null)
+  if [[ -n $ref ]]; then
+    echo `expr "$ref" : 'refs/heads/\(.*\)'`
+  fi
+}
+
+# RVM
+function rvm_version {
+  local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
+  [ "$gemset" != "" ] && gemset="@$gemset"
+  local ruby_version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
+  [ "$ruby_version" != "" ] && ruby_version="$ruby_version"
+  local full="$ruby_version$gemset"
+  [ "$full" != "" ] && echo "$full "
+}
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
+[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+# TMUX
+if [[ -z $TMUX ]]; then
+  # ** TMUX ATULOGIN **
+  # Check for existing session and attach if present
+  TMUX_SESSION=$USER
+  TMUX_SOCKET_NAME="tmux"
+  tmux -L $TMUX_SOCKET_NAME has-session -t $TMUX_SESSION &>/dev/null
+  if [[ $? -ne 0 ]]; then
+    tmux -L $TMUX_SOCKET_NAME new-session -d -s $TMUX_SESSION
+  fi
+  tmux -L $TMUX_SOCKET_NAME attach-session -t $TMUX_SESSION &>/dev/null
+fi
+
+# Prompt
+#export PS1='$(rvm-prompt)$(__git_ps1 "[\[\e[0;32m\]%s\[\e[0m\]\[\e[0;33m\]$(parse_git_dirty)\[\e[0m\]]")[\w]: '
+export PS1='$(parse_git_branch)> '
+
+# Old ZSH
+# export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg[green]%}%n@%m:"}%{$fg[green]%}%2c%{$reset_color%}] '
