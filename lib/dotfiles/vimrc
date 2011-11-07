@@ -1,3 +1,111 @@
+" *** NEW CONFIG ***
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+" required for Vundle
+filetype off 
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" let Vundle manage Vundle
+" required for Vundle
+Bundle 'gmarik/vundle'
+
+" My Bundles here:
+" original repos on github
+Bundle 'mileszs/ack.vim'
+Bundle 'juvenn/mustache.vim'
+Bundle 'hashrocket/slurper'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-haml'
+Bundle 'pangloss/vim-javascript'
+Bundle 'tpope/vim-markdown'
+Bundle 'ornicar/vim-mru'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'git://git.wincent.com/command-t.git'
+
+" required for Vundle
+filetype plugin indent on
+
+" Softtabs, 2 spaces
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" Always display the status line
+set laststatus=2
+
+" Display incomplete commands
+set showcmd
+
+" Color scheme
+colorscheme railscasts
+" highlight NonText guibg=#060606
+" highlight Folded  guibg=#0A0A0A guifg=#9090D0
+
+" Numbers
+set number
+set numberwidth=5
+
+" Syntax Highlighting
+syntax on
+set hlsearch
+
+" Display extra whitespace
+set list 
+set listchars=tab:>-,trail:.
+
+" case only matters with mixed case expressions
+set ignorecase
+set smartcase
+
+" Tab completion options
+" (only complete to the longest unambiguous match, and show a menu)
+set completeopt=longest,menu
+set wildmode=list:longest,list:full
+
+" Load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+
+" Leader + Custom Mappings
+let mapleader = ","
+
+" -- Quickly edit vimrc
+map <Leader>qq :sp ~/.vimrc<CR><C-W>_ 
+
+" -- Open MRU (Most Recently Used plugin)
+map <Leader>m :MRU 
+
+" -- Close current window
+map <Leader>x :close<CR>
+
+" -- Close quickfix window
+map <Leader>c :cclose<CR>
+
+" -- Coffee Script
+map <Leader>cr :CoffeeRun<CR>
+map <Leader>cc :CoffeeCompile<CR>
+map <Leader>cm :CoffeeMake<CR>
+
+" END CUSTOM LEADER COMMANDS
+
+" Maps autocomplete to tab
+imap <Tab> <C-N>
+
+
+" Local config
+if filereadable(".vimrc.local")
+  source .vimrc.local
+endif
+
+
 " *** COMMENTING OUT VIMRC TO START FROM SCRATCH
 
 " " Use Vim settings, rather then Vi settings (much better!).
@@ -231,16 +339,3 @@
 " " call JSLintToggle()
 " 
 " " set iskeyword+=?,!
-
-"-------- Local Overrides
-"If you have options you'd like to override locally for
-"some reason (don't want to store something in a
-"publicly-accessible repository, machine-specific settings, etc.),
-"you can create a '.local_vimrc' file in your home directory
-"(ie: ~/.local_vimrc) and it will be 'sourced' here and override
-"any settings in this file.
-"
-"NOTE: YOU MAY NOT WANT TO ADD ANY LINES BELOW THIS
-if filereadable(expand('~/.local_vimrc'))
-  source ~/.local_vimrc
-end
