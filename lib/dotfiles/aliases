@@ -26,6 +26,7 @@ alias gpr='git pull --rebase origin master'
 
 # bundler
 alias be='bundle exec'
+alias br='bundle exec rake'
 
 # MacVim terminal
 alias vim='mvim -v'
@@ -33,8 +34,8 @@ alias view='mview -v'
 alias vimdiff='mvimdiff -v'
 alias vimex='mvimex -v'
 
-# Autotest
-alias autos='AUTOFEATURE=true autospec'
+# Random
+alias nyan='telnet miku.acm.uiuc.edu'
 
 # Load ~/.local_aliases file if it exists & is readable
 [ -r ~/.local_aliases ] && . ~/.local_aliases

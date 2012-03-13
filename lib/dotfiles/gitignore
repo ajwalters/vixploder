@@ -3,3 +3,9 @@
 jferris-*.gemspec
 *.scratch.*
 *.watchr
+.monitor
+
+config/initializers/_walters_custom_stuff.rb
+Guardfile.local
+.env
+.custom

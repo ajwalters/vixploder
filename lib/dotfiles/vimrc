@@ -17,19 +17,24 @@ Bundle 'gmarik/vundle'
 Bundle 'mileszs/ack.vim'
 Bundle 'juvenn/mustache.vim'
 Bundle 'hashrocket/slurper'
+Bundle 'msanders/snipmate.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'vim-scripts/VimClojure'
 Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-haml'
+Bundle 'digitaltoad/vim-jade'
 Bundle 'pangloss/vim-javascript'
 Bundle 'tpope/vim-markdown'
+Bundle 'tsaleh/vim-matchit'
 Bundle 'ornicar/vim-mru'
 Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'kikijump/tslime.vim'
 
 " required for Vundle
 filetype plugin indent on
@@ -77,6 +82,9 @@ filetype plugin indent on
 " Leader + Custom Mappings
 let mapleader = ","
 
+" -- Open Explore in current buffer
+map <Leader>e :Explore<CR>
+
 " -- Quickly edit vimrc
 map <Leader>qq :sp ~/.vimrc<CR><C-W>_ 
 
@@ -94,248 +102,31 @@ map <Leader>cr :CoffeeRun<CR>
 map <Leader>cc :CoffeeCompile<CR>
 map <Leader>cm :CoffeeMake<CR>
 
+" -- Toggle Line Numbers
+map <Leader>n :set number!<CR>
+
+" -- Fugitive
+map <Leader>gs :Gstatus<CR>
+map <Leader>gb :Gblame<CR>
+map <Leader>gd :Gdiff<CR>
+map <Leader>gw :Gwrite<CR>
 " END CUSTOM LEADER COMMANDS
 
-" Maps autocomplete to tab
-imap <Tab> <C-N>
+" Command-T Settings
+let g:CommandTMaxFiles=20000
+
+" autocmds
+if has("autocmd")
+  autocmd! BufWritePost .vimrc source %
+endif " has("autocmd")
+
+" Project based config
+if filereadable(".custom/vim.vimrc")
+  source .custom/vim.vimrc
+endif
 
 
 " Local config
 if filereadable(".vimrc.local")
   source .vimrc.local
 endif
-
-
-" *** COMMENTING OUT VIMRC TO START FROM SCRATCH
-
-" " Use Vim settings, rather then Vi settings (much better!).
-" " This must be first, because it changes other options as a side effect.
-" set nocompatible
-" 
-" " This is a hacked method of determining the platform we are on...
-" let s:platform = system("uname")
-" let s:on_linux = s:platform =~? "linux"
-" let s:on_mac   = has('macunix') || s:platform =~? 'Darwin'
-" 
-" " TPope's pathogem for plugin loading
-" call pathogen#runtime_append_all_bundles()
-" 
-" " allow backspacing over everything in insert mode
-" set backspace=indent,eol,start
-" 
-" set nobackup
-" set nowrap
-" set nowritebackup
-" set history=50		" keep 50 lines of command line history
-" set ruler		" show the cursor position all the time
-" set showcmd		" display incomplete commands
-" set incsearch		" do incremental searching
-" 
-" " Don't use Ex mode, use Q for formatting
-" map Q gq
-" 
-" " This is an alternative that also works in block mode, but the deleted
-" " text is lost and it only works for putting the current register.
-" "vnoremap p "_dp
-" 
-" " Switch syntax highlighting on, when the terminal has colors
-" " Also switch on highlighting the last used search pattern.
-" if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-"   syntax on
-"   set hlsearch
-" endif
-" 
-" " Only do this part when compiled with support for autocommands.
-" if has("autocmd")
-" 
-"   " Enable file type detection.
-"   " Use the default filetype settings, so that mail gets 'tw' set to 72,
-"   " 'cindent' is on in C files, etc.
-"   " Also load indent files, to automatically do language-dependent indenting.
-"   filetype plugin indent on
-" 
-"   " Put these in an autocmd group, so that we can delete them easily.
-"   augroup vimrcEx
-"   au!
-" 
-"   " For all text files set 'textwidth' to 78 characters.
-"   autocmd FileType text setlocal textwidth=78
-" 
-"   " When editing a file, always jump to the last known cursor position.
-"   " Don't do it when the position is invalid or when inside an event handler
-"   " (happens when dropping a file on gvim).
-"   autocmd BufReadPost *
-"     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"     \   exe "normal g`\"" |
-"     \ endif
-" 
-"   augroup END
-" 
-"   "-------- Autocommands
-"   autocmd! BufWritePost .vimrc source %
-" 
-"   "------- Rails autocmds
-"   autocmd User Rails Rnavcommand feature features -suffix=.feature
-"   autocmd User Rails Rnavcommand steps features/step_definitions -suffix=_steps.rb
-" 
-" else
-" 
-"   set autoindent		" always set autoindenting on
-" 
-" endif " has("autocmd")
-" 
-" if has("folding")
-"   set foldenable
-"   set foldmethod=syntax
-"   set foldlevel=999
-"   set foldnestmax=999
-"   set foldtext=strpart(getline(v:foldstart),0,50).'\ ...\'.substitute(getline(v:foldend),'^[\ #]*','','g').'\ '
-" endif
-" 
-" " Softtabs, 2 spaces
-" set tabstop=2
-" set shiftwidth=2
-" set expandtab
-" 
-" " Always display the status line
-" set laststatus=2
-" 
-" "-------- Mappings
-" "Set the map leader...this is the default character, just put it in here
-" " to be explicit. Mappings which include "<leader>" would start with this
-" " charachter. For example. "map <leader>f <some_command>" would create a mapping for
-" " ,-f (comma-f) to '<some_command>'
-" let mapleader = ","
-" 
-" " Edit the README_FOR_APP (makes :R commands work)
-" map <Leader>R :e doc/README_FOR_APP<CR>
-" 
-" " Leader shortcuts for Rails commands
-" map <Leader>qq :sp ~/.vimrc<CR><C-W>_ 
-" 
-" " Hide search highlighting
-" map <Leader>h :set invhls <CR>
-" 
-" " Opens an edit command with the path of the currently edited file filled in
-" " Normal mode: <Leader>e
-" map <Leader>ee :e <C-R>=expand("%:p:h") . "/" <CR>
-" 
-" " Open NERDTree
-" map <Leader>s :NERDTreeToggle<CR>
-" 
-" " Open MRU (Most Recently Used plugin)
-" map <Leader>m :MRU 
-" 
-" " Close current window
-" map <Leader>x :close<CR>
-" 
-" " Close quickfix window
-" map <Leader>c :cclose<CR>
-" 
-" " Coffee Script
-" map <Leader>cr :CoffeeRun<CR>
-" map <Leader>cc :CoffeeCompile<CR>
-" map <Leader>cm :CoffeeMake<CR>
-" 
-" " Inserts the path of the currently edited file into a command
-" " Command mode: Ctrl+P
-" cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-" 
-" " Maps autocomplete to tab
-" imap <Tab> <C-N>
-" 
-" " Duplicate a selection
-" " Visual mode: D
-" vmap D y'>p
-" 
-" " No Help, please
-" nmap <F1> <Esc>
-" 
-" " Emacs 
-" "map! <C-A> <Home>
-" "map! <C-E> <End>
-" 
-" " Display extra whitespace
-" set list 
-" set listchars=tab:>-,trail:.
-" 
-" " Edit routes
-" command! Rroutes :e config/routes.rb
-" command! RTroutes :tabe config/routes.rb
-" 
-" " Local config
-" if filereadable(".vimrc.local")
-"   source .vimrc.local
-" endif
-" 
-" " Use Ack instead of Grep when available
-" if executable("ack")
-"   set grepprg=ack\ -H\ --nogroup\ --nocolor
-" endif
-" 
-" " Color scheme
-" colorscheme railscasts
-" highlight NonText guibg=#060606
-" highlight Folded  guibg=#0A0A0A guifg=#9090D0
-" 
-" " Numbers
-" set number
-" set numberwidth=5
-" 
-" " Snippets are activated by Shift+Tab
-" let g:snippetsEmu_key = "<S-Tab>"
-" 
-" " Tab completion options
-" " (only complete to the longest unambiguous match, and show a menu)
-" set completeopt=longest,menu
-" set wildmode=list:longest,list:full
-" 
-" " case only matters with mixed case expressions
-" set ignorecase
-" set smartcase
-" 
-" "Switch to the next "higher" windows with <C-K>
-" noremap <C-J> <C-W>j<C-W>_
-" 
-" "Switch to the next "higher" windows with <C-J>
-" noremap <C-K> <C-W>k<C-W>_
-" 
-" "-------- NERDTree settings
-" "Ignore files
-" let NERDTreeIgnore=['\.beam$']
-" 
-" "Set max entries in MRU option window
-" let MRU_Max_Entries = 30
-" 
-" "Gist (http://gist.github.com) integration
-" " Gist plugin options. Be sure to add a 'github'
-" " section to your global .gitconfig file.
-" " Example of .gitconfig section:
-" " [github]
-" "   user = <your username>
-" "   token = <your account token>
-" " Set up clipboard to use OS X's 'pbcopy' command
-" "if s:on_mac
-"   "let g:gist_clip_command = 'pbcopy'
-" "elseif s:on_linux
-"   "let g:gist_clip_command = 'xclip -selection clipboard'
-" "endif
-" 
-" let g:gist_clip_command = 'pbcopy'
-" 
-" "-------- Abbreviations
-" "Some lorem ispum text
-" abbreviate lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum bibendum hendrerit ante. Phasellus vitae enim id erat fringilla fermentum.  Pellentesque tellus. Cras eros magna, pretium ac, tincidunt id, tincidunt eget, mi. Fusce tristique sollicitudin eros. Nam augue nisi, volutpat non, cursus a, aliquam ac, magna. Sed rhoncus, ipsum vitae semper ultrices, ante nunc faucibus nunc, sed iaculis elit metus condimentum turpis. Suspendisse suscipit. Nulla eget nulla. Aliquam varius sem quis tortor. Proin eu dolor a lacus lobortis luctus. Phasellus interdum. Maecenas quis sem. Nulla facilisi.
-" 
-" " MISC COMMANDS
-" command! Wsudo w !sudo tee %
-" 
-" " Use Node.js for JavaScript interpretation
-" let $JS_CMD='node'
-" 
-" " JSLintToggle
-" " let g:jslint_disabled = 1
-" " let b:jslint_disabled = 1
-" " call JSLintToggle()
-" 
-" " set iskeyword+=?,!

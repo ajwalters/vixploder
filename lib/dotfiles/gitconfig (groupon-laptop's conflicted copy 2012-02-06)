@@ -1,12 +1,7 @@
 # ADD LOCAL CONFIGURATION HERE
-
-# Adding this here so it can quickly be added back since git-pair always jacks it up
-# [user]
-#   name = "Adam Walters"
-#   email = "awalters@groupon.com"
 [user]
-  name = "Adam Walters"
-  email = "awalters@groupon.com"
+  name = Adam Walters
+  email= awalters@groupon.com
 [color]
   diff = auto
   status = auto

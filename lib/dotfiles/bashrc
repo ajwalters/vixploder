@@ -7,8 +7,9 @@ export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
-export BUNDLE_GEMFILE=Gemfile.local
-export PATH=/usr/local/bin:$PATH:/usr/local/sbin:/Users/awalters/Projects/groupon-git-utils/bin
+# export BUNDLE_GEMFILE=Gemfile.local
+export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Users/awalters/Projects/groupon-git-utils/bin
+export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
 # some shit from polito
 #export MYVIMRC=~/.vimrc
 #export MYGVIMRC=~/.gvimrc
@@ -21,6 +22,10 @@ export RUBY_HEAP_MIN_SLOTS=500000
 export RUBY_HEAP_SLOTS_INCREMENT=250000
 export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
 export RUBY_GC_MALLOC_LIMIT=50000000
+
+# TMUX ENV variables
+export TMUX_SESSION=$USER
+export TMUX_SOCKET_NAME="tmux"
 
 # Shell Opts
 shopt -s cdspell >/dev/null 2>&1
@@ -94,8 +99,6 @@ function rvm_version {
 if [[ -z $TMUX ]]; then
   # ** TMUX ATULOGIN **
   # Check for existing session and attach if present
-  TMUX_SESSION=$USER
-  TMUX_SOCKET_NAME="tmux"
   tmux -L $TMUX_SOCKET_NAME has-session -t $TMUX_SESSION &>/dev/null
   if [[ $? -ne 0 ]]; then
     tmux -L $TMUX_SOCKET_NAME new-session -d -s $TMUX_SESSION
@@ -109,3 +112,8 @@ export PS1='$(parse_git_branch)> '
 
 # Old ZSH
 # export PS1='$(git_prompt_info)[${SSH_CONNECTION+"%{$fg[green]%}%n@%m:"}%{$fg[green]%}%2c%{$reset_color%}] '
+
+# Local Overrides
+if [ -e "$HOME/.bashrc.local" ]; then
+  source "$HOME/.bashrc.local"
+fi

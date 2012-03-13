@@ -31,7 +31,9 @@ if ENV.include?('RAILS_ENV')
 elsif defined?(Rails) && !Rails.env.nil?
   if Rails.logger
     Rails.logger =Logger.new(STDOUT)
-    ActiveRecord::Base.logger = Rails.logger
+    if defined?(ActiveRecord::Base)
+      ActiveRecord::Base.logger = Rails.logger
+    end
   end
 else
   # nothing to do
