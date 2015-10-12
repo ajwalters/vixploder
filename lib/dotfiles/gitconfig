@@ -1,38 +1,47 @@
 # ADD LOCAL CONFIGURATION HERE
 
-# Adding this here so it can quickly be added back since git-pair always jacks it up
-# [user]
-#   name = "Adam Walters"
-#   email = "awalters@groupon.com"
 [user]
   name = "Adam Walters"
-  email = "awalters@groupon.com"
+  email = "ajwalters@gmail.com"
 [color]
   diff = auto
   status = auto
   branch = auto
   ui = true
+
+[color "diff"]
+  whitespace = red reverse
 [core]
 	excludesfile = ~/.gitignore
 	autocrlf = input
-  editor = mvim -v
+  editor = vim
 [alias]
-  c = commit -m
   a = add
+  b = branch
+  bb = for-each-ref --sort=-committerdate refs/heads/
+  c = commit -m
+  co = checkout
   di = diff
   dic = diff --cached
-  pl = pull
-  ps = push
-  plre = pull --rebase
-  st = status
-  out = log origin..HEAD
-  b = branch
-  st = status
-  co = checkout
-  lg = log --graph --pretty=format':%C(yellow)%h%C(green)%d%Creset %s %C(cyan) %an, %ar%Creset'
+  f = fetch
   l = log
-  # l = log --pretty=format':%C(yellow)%h%Creset  %C(cyan)%aN%Creset  %s  %C(red)(%cr)%Creset'
+  lf = log --format=fuller
+  lg = log --graph --pretty=format':%C(yellow)%h%C(green)%d%Creset %s %C(cyan) %an, %ar%Creset'
+  lgf = log --graph --pretty=fuller
+  m = merge
+  out = log origin..HEAD
+  pl = pull
+  plre = pull --rebase
+  ps = push
+  st = status
+  st = status
 [format]
   pretty = %C(yellow)%h%Creset  %C(cyan)%aN%Creset  %s  %C(red)(%cr)%Creset
 [branch]
 	autosetupmerge = true
+[rerere]
+	enabled = true
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f

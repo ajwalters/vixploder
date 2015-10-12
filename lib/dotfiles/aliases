@@ -1,32 +1,19 @@
 # Common command aliases
-alias vil='vi $_'
-alias ls='ls -F'
-alias la='ls -la'
-alias resource='source ~/.zshrc'
-alias ce='cd ~/src/vixploder; mvim'
 alias la='ls -lah'
-alias sgi='sudo gem install --no-ri'
-alias restart='touch tmp/restart.txt'
-alias kill_ruby='killall -9 ruby'
+alias resource='source ~/.bashrc'
 
-# Rails
-alias r='rails'
-alias ss='./script/server --debugger'
-alias sas='./script/autospec'
-alias sc='./script/console --irb=pry'
-alias rc='rails console'
-alias sg='./script/generate'
-alias rg='rails generate'
-alias rdb='rake db:migrate'
-alias ld='tail -f log/development.log'
-alias lt='tail -f log/test.log'
+# Tmux
+alias tmux-set-current-path="pwd | xargs tmux set-option default-path"
 
-# git
-alias gpr='git pull --rebase origin master'
+# Cocoapods
+alias pod-reset="rm -rf Pods && pod install"
 
 # bundler
+alias j='jobs'
 alias be='bundle exec'
 alias br='bundle exec rake'
+alias local-bundler='export BUNDLE_GEMFILE=Gemfile.local'
+alias reset-bundler='export BUNDLE_GEMFILE=Gemfile'
 
 # MacVim terminal
 alias vim='mvim -v'
@@ -34,8 +21,34 @@ alias view='mview -v'
 alias vimdiff='mvimdiff -v'
 alias vimex='mvimex -v'
 
+# zeus
+alias zc='zeus c'
+alias zs='zeus s'
+alias zt='zeus test'
+
+# Docker
+# alias dsi='$(boot2docker shellinit)'
+
+# Rspec + Pry
+alias rspec-pry='rspec -r pry'
+
 # Random
-alias nyan='telnet miku.acm.uiuc.edu'
+alias nyan='telnet nyancat.dakko.us'
+alias generate-timestamp="TZ=UTC date '+%Y.%m.%d_%H.%M'"
+
+# Launchd
+alias start_postgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+
+# Ctags
+alias generate_etags_clojure='etags -R —langmap=Lisp:+.clj —sort=yes —exclude=.git —exclude=.svn —exclude=**/target *'
+alias generate_etags='etags -R —sort=yes —exclude=.git —exclude=.svn —exclude=**/*.log **/*'
+alias ctags="`brew --prefix`/bin/ctags"
+alias ctags_ruby="ctags -R --exclude=.git --exclude=log *"
+
+alias curl-snc1='http_proxy=localhost:3132 curl '
 
 # Load ~/.local_aliases file if it exists & is readable
 [ -r ~/.local_aliases ] && . ~/.local_aliases
+
+# convert mac line endings (stupid excel) to unic
+alias mac-2-unix-line-endings="perl -pi -e 's/\r/\n/g'"

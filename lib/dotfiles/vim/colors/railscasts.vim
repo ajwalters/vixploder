@@ -96,3 +96,8 @@ highlight SpellBad                  guifg=#D70000 ctermfg=160 ctermbg=NONE cterm
 highlight SpellRare                 guifg=#D75F87 ctermfg=168 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight SpellCap                  guifg=#D0D0FF ctermfg=189 guibg=NONE ctermbg=NONE gui=underline cterm=underline
 highlight MatchParen                guifg=#FFFFFF ctermfg=15 guibg=#005f5f ctermbg=23
+
+highlight Pmenu          guifg=#e4e4e4    guibg=#606060 ctermfg=254    ctermbg=241
+highlight PmenuSel       guifg=#9e9e9e    guibg=#262626 ctermfg=247    ctermbg=235
+" highlight PmenuSbar      guibg=#DAEFA3                  ctermbg=#DAEFA3
+" highlight PmenuThumb     guifg=#8F9D6A                  ctermfg=#8F9D6A

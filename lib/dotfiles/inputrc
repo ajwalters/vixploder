@@ -1,3 +1,6 @@
 # Edit commands in Vi mode
 set editing-mode emacs
 set keymap emacs
+
+# Ignore case
+set completion-ignore-case on

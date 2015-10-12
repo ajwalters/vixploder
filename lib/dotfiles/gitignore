@@ -1,3 +1,6 @@
+\#*#
+\.#*
+*~
 *.swp
 .swo
 jferris-*.gemspec
@@ -7,5 +10,22 @@ jferris-*.gemspec
 
 config/initializers/_walters_custom_stuff.rb
 Guardfile.local
-.env
 .custom
+Gemfile.local*
+.tmux-background-job.conf
+zeus.json
+.zeus_custom_plan.rb
+/tags
+/TAGS
+
+.DS_Store
+
+/local/
+
+.dir-locals.el
+
+.agignore
+
+.nrepl-port
+
+.rake_t_cache

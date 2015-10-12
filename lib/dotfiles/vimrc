@@ -1,40 +1,48 @@
-" *** NEW CONFIG ***
+"*** NEW CONFIG ***
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 " required for Vundle
 filetype off 
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required for Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " My Bundles here:
 " original repos on github
-Bundle 'mileszs/ack.vim'
-Bundle 'juvenn/mustache.vim'
-Bundle 'hashrocket/slurper'
-Bundle 'msanders/snipmate.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'vim-scripts/VimClojure'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'pangloss/vim-javascript'
-Bundle 'tpope/vim-markdown'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'ornicar/vim-mru'
-Bundle 'tpope/vim-rails'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'git://git.wincent.com/command-t.git'
-Bundle 'kikijump/tslime.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'juvenn/mustache.vim'
+Plugin 'adamlowe/vim-slurper'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vim-scripts/VimClojure'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-abolish'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-markdown'
+Plugin 'tsaleh/vim-matchit'
+" Plugin 'ornicar/vim-mru'
+Plugin 'tpope/vim-rails'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+" Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'kikijump/tslime.vim'
+Plugin 'ajwalters/tmux-background-job'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rizzatti/dash.vim'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+
+call vundle#end()
 
 " required for Vundle
 filetype plugin indent on
@@ -52,6 +60,11 @@ set showcmd
 
 " Color scheme
 colorscheme railscasts
+" highlight Pmenu ctermfg=lightgrey ctermbg=darkgray guifg=lightgrey guibg=darkgray
+" highlight PmenuSel ctermfg=lightgrey ctermbg=darkgray guifg=lightgrey guibg=darkgray
+" highlight PmenuThumb ctermfg=lightgrey ctermbg=darkgray
+" highlight Pmenu-Sbar ctermfg=lightgrey ctermbg=darkgray
+" highlight PmenuSel ctermfg=<color> ctermbg=<color>
 " highlight NonText guibg=#060606
 " highlight Folded  guibg=#0A0A0A guifg=#9090D0
 
@@ -76,20 +89,31 @@ set smartcase
 set completeopt=longest,menu
 set wildmode=list:longest,list:full
 
+" Split behavior
+set splitbelow
+set splitright
+
 " Load indent files, to automatically do language-dependent indenting.
 filetype plugin indent on
+
+" Folding
+set foldenable
+set foldlevelstart=99
 
 " Leader + Custom Mappings
 let mapleader = ","
 
 " -- Open Explore in current buffer
 map <Leader>e :Explore<CR>
+map <Leader>ve :Vexplore!<CR>
+map <Leader>se :Sexplore<CR>
 
 " -- Quickly edit vimrc
 map <Leader>qq :sp ~/.vimrc<CR><C-W>_ 
 
-" -- Open MRU (Most Recently Used plugin)
-map <Leader>m :MRU 
+" -- CtrlP Mappings
+map <Leader>t :CtrlP<CR>
+map <Leader>m :CtrlPMRUFiles<CR>
 
 " -- Close current window
 map <Leader>x :close<CR>
@@ -104,20 +128,66 @@ map <Leader>cm :CoffeeMake<CR>
 
 " -- Toggle Line Numbers
 map <Leader>n :set number!<CR>
+map <Leader>p :set paste!<CR>
 
 " -- Fugitive
 map <Leader>gs :Gstatus<CR>
 map <Leader>gb :Gblame<CR>
 map <Leader>gd :Gdiff<CR>
 map <Leader>gw :Gwrite<CR>
+map <Leader>gg :Ggrep 
+map <Leader>g* :Ggrep <cword><CR>
+
+" -- Tabs
+map <Leader>1 :tabnext 1<CR>
+map <Leader>2 :tabnext 2<CR>
+map <Leader>3 :tabnext 3<CR>
+map <Leader>4 :tabnext 4<CR>
+map <Leader>5 :tabnext 5<CR>
+map <Leader>6 :tabnext 6<CR>
+map <Leader>7 :tabnext 7<CR>
+map <Leader>8 :tabnext 8<CR>
+map <Leader>9 :tabnext 9<CR>
+map <Leader>0 :tabnext 0<CR>
+
+" -- Buffers
+map <Leader>b :buffer 
+map <Leader>sb :sbuffer
+map <Leader>vb :sbuffer
+
+" -- Rails
+map <Leader>a :A<CR>
+
+" -- Tmux
+map <Leader>s :TmuxBackgroundJob<CR>
+map <Leader>r :TmuxRerunBackgroundJob<CR>
+
+" -- Highlights
+map <Leader>h :noh<CR>
+
+" -- Dash
+map <Leader>d :Dash<CR>
+
 " END CUSTOM LEADER COMMANDS
 
-" Command-T Settings
-let g:CommandTMaxFiles=20000
+" Custom Commands
+" Checy Ruby Syntax
+command! RubySyntaxCheck execute "!ruby -c %"
+
+" Make VIM Copy/Paste with tmux
+" set clipboard=unnamed
+
+" Ctrl-P
+let g:ctrlp_max_files = 10000
+set wildignore+=*.class*,*.jar
 
 " autocmds
 if has("autocmd")
   autocmd! BufWritePost .vimrc source %
+  autocmd BufNewFile,BufRead *.cljs set filetype=clojure
+  au BufNewFile,BufRead Podfile set filetype=ruby
+  au BufNewFile,BufRead *.podspec set filetype=ruby
+  autocmd BufNewFile,BufRead Gemfile set filetype=ruby
 endif " has("autocmd")
 
 " Project based config
@@ -130,3 +200,9 @@ endif
 if filereadable(".vimrc.local")
   source .vimrc.local
 endif
+
+" Ashish
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-H> <C-W>h
+map <C-L> <C-W>l

@@ -1,46 +1,46 @@
-require 'rubygems'
-begin
-  require 'pp'
-rescue LoadError
-end
+# require 'rubygems'
+# begin
+# rescue LoadError
+# end
+# 
+# begin
+#   require 'wirble'
+#   Wirble.init
+#   Wirble.colorize
+# rescue LoadError
+# end
+# 
+# begin
+#   require 'boson'
+#   Boson.start
+# rescue LoadError
+# end
+# 
+# begin
+#   require 'ap'
+# rescue LoadError
+# end
+# 
+# # print SQL to STDOUT
+# if ENV.include?('RAILS_ENV') 
+#   if !Object.const_defined?('RAILS_DEFAULT_LOGGER')
+#     require 'logger'
+#     RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
+#   end
+# elsif defined?(Rails) && !Rails.env.nil?
+#   if Rails.logger
+#     Rails.logger =Logger.new(STDOUT)
+#     if defined?(ActiveRecord::Base)
+#       ActiveRecord::Base.logger = Rails.logger
+#     end
+#   end
+# else
+#   # nothing to do
+# end
+# 
 
-begin
-  require 'wirble'
-  Wirble.init
-  Wirble.colorize
-rescue LoadError
-end
-
-begin
-  require 'boson'
-  Boson.start
-rescue LoadError
-end
-
-begin
-  require 'ap'
-rescue LoadError
-end
-
-# print SQL to STDOUT
-if ENV.include?('RAILS_ENV') 
-  if !Object.const_defined?('RAILS_DEFAULT_LOGGER')
-    require 'logger'
-    RAILS_DEFAULT_LOGGER = Logger.new(STDOUT)
-  end
-elsif defined?(Rails) && !Rails.env.nil?
-  if Rails.logger
-    Rails.logger =Logger.new(STDOUT)
-    if defined?(ActiveRecord::Base)
-      ActiveRecord::Base.logger = Rails.logger
-    end
-  end
-else
-  # nothing to do
-end
-
-# Autocomplete
 require 'irb/completion'
+require 'pp'
 
 # Prompt behavior
 ARGV.concat [ "--readline", "--prompt-mode", "simple" ]
@@ -50,9 +50,24 @@ require 'irb/ext/save-history'
 IRB.conf[:SAVE_HISTORY] = 100
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
 
-# Easily print methods local to an object's class
-class Object
-  def local_methods
-    (methods - Object.instance_methods).sort
-  end
-end
+# # Easily print methods local to an object's class
+# class Object
+#   def local_methods
+#     (methods - Object.instance_methods).sort
+#   end
+# end
+
+# def create_vacuum
+#   require "vacuum"
+#   req = Vacuum.new
+#   req.configure key: "AKIAJNRQGU3WQZDQCM4A", secret: "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", tag: "ajw-test"
+#   req
+# end
+
+# def amazon_params
+#   {"Operation"=>"ItemLookup", "ItemId"=>"B005N4HBE6", "ResponseGroups"=>"Images", "ResponseGroup"=>"Images,ItemAttributes,ItemIds,Reviews"}
+# end
+
+# def write_xml_to_file(string, file)
+#   `echo '#{string}' | xmlformat > #{file}`
+# end

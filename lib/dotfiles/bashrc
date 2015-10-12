@@ -1,31 +1,25 @@
 # Frankenstein dotfiles
 # sources: Matt Polito, Ryan Tomayko
 
-# LS Coloring
 export EDITOR="vim"
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad
 # export BUNDLE_GEMFILE=Gemfile.local
-export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/Users/awalters/Projects/groupon-git-utils/bin
+export PATH=$HOME/.rbenv/shims:~/bin:/usr/local/bin:$PATH:/usr/local/sbin:$HOME/.rbenv/bin
 export NODE_PATH=/usr/local/lib/node_modules:$NODE_PATH
-# some shit from polito
-#export MYVIMRC=~/.vimrc
-#export MYGVIMRC=~/.gvimrc
-#export BUNDLER_EDITOR="mvim -f"
-#export CUCUMBER_FORMAT=pretty
-#echo "FOOOOOOOO"
+export JAVA_HOME="$(/usr/libexec/java_home)"
+export LANG=en_US.UTF-8
 
 # Some ruby optimizations
-export RUBY_HEAP_MIN_SLOTS=500000
-export RUBY_HEAP_SLOTS_INCREMENT=250000
-export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
-export RUBY_GC_MALLOC_LIMIT=50000000
+export RUBY_GC_HEAP_INIT_SLOTS=600000
+export RUBY_GC_MALLOC_LIMIT=59000000
+export RUBY_HEAP_FREE_MIN=100000
 
 # TMUX ENV variables
 export TMUX_SESSION=$USER
-export TMUX_SOCKET_NAME="tmux"
+export TMUX_SOCKET_PATH="/tmp/ajw-tmux"
 
 # Shell Opts
 shopt -s cdspell >/dev/null 2>&1
@@ -35,6 +29,19 @@ shopt -s hostcomplete >/dev/null 2>&1
 shopt -s interactive_comments >/dev/null 2>&1
 shopt -u mailwarn >/dev/null 2>&1
 shopt -s no_empty_cmd_completion >/dev/null 2>&1
+# shopt -s autocd
+
+# Some Python stuffs
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+
+# cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+
+# function to enable global pip install
+syspip(){
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
 
 # Aliases
 if [ -e "$HOME/.aliases" ]; then
@@ -81,29 +88,23 @@ function parse_git_branch {
   fi
 }
 
-# RVM
-function rvm_version {
-  local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
-  [ "$gemset" != "" ] && gemset="@$gemset"
-  local ruby_version=$(echo $MY_RUBY_HOME | awk -F'-' '{print $2}')
-  [ "$ruby_version" != "" ] && ruby_version="$ruby_version"
-  local full="$ruby_version$gemset"
-  [ "$full" != "" ] && echo "$full "
+# Utility
+function tmux-kill-windows {
+  for((i=$1; i<=$2; i++))
+  do
+    tmux kill-window -t$i
+  done
 }
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 
 # TMUX
 if [[ -z $TMUX ]]; then
   # ** TMUX ATULOGIN **
   # Check for existing session and attach if present
-  tmux -L $TMUX_SOCKET_NAME has-session -t $TMUX_SESSION &>/dev/null
+  tmux -S $TMUX_SOCKET_PATH has-session -t $TMUX_SESSION &>/dev/null
   if [[ $? -ne 0 ]]; then
-    tmux -L $TMUX_SOCKET_NAME new-session -d -s $TMUX_SESSION
+    tmux -S $TMUX_SOCKET_PATH new-session -d -s $TMUX_SESSION
   fi
-  tmux -L $TMUX_SOCKET_NAME attach-session -t $TMUX_SESSION &>/dev/null
+  tmux -S $TMUX_SOCKET_PATH attach-session -t $TMUX_SESSION &>/dev/null
 fi
 
 # Prompt
@@ -117,3 +118,10 @@ export PS1='$(parse_git_branch)> '
 if [ -e "$HOME/.bashrc.local" ]; then
   source "$HOME/.bashrc.local"
 fi
+
+eval "$(rbenv init -)"
+
+source /usr/local/Library/LinkedKegs/rbenv/completions/rbenv.bash
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
